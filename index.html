@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>firstplanit map</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+
+        <!--ADDITIONAL SCRIPTS-->
+        <link rel="stylesheet" href="b_script/style.css">
+               
+        <title></title>
+    </head>
+    <body>
+
+        <div id="wrapper">
+
+            <div id="left">
+                <h1>Firstplanit Map</h1>
+                <form>
+                <fieldset>
+                    <legend>Environmental Risk</legend>
+                    <p>
+                    <label>Your Postcode: </label>
+                    <input type = "text"
+                            id = "myPcd"
+                            value = "eg. NR5 7HG" />
+                    </p>
+                    <p>
+                    <button id = "btn-pcd" type="button" ;">Go!</button>
+                    </p>
+                </fieldset>
+                </form>
+
+                <p></p>
+
+                <form>
+                <fieldset>
+                    <legend>Legend</legend>
+                    <section id = "legendcolor">
+                    <table id=legendtbl>
+                    <tr>
+                        <th style = 'border-bottom: 0px'></th>
+                        <th>
+                            <span style="float: left">Low</span>
+                            <span style="float: right">Very High</span>
+                        </th>
+                        <th>&nbsp; Standard  &nbsp;</th>
+                        <th>&nbsp; Your Value  &nbsp;</th>
+                    </tr>    
+                    <tr id='pm25'>
+                        <td style='text-align: left'>Air PM 2.5<sup>1</sup></td>
+                        <td >
+                        <span id = 'v11', style='color:#1A9641'>&#9724</span>
+                        <span id = 'v12', style='color:#A6D96A'>&#9724</span>
+                        <span id = 'v13', style='color:#ffffbf'>&#9724</span>
+                        <span id = 'v14', style='color:#fdae61'>&#9724</span>
+                        <span id = 'v15', style='color:#d7191c'>&#9724</span>
+                        </td>
+                        <td>10 μg</td>
+                        <td >
+                            <span id = 'v17'></span>
+                        </td>
+                    </tr>
+                    
+                    <tr>
+                        <td style='text-align: left'>Air PM 10<sup>1</sup></td>
+                        <td >
+                        <span id = 'v21', style='color:#1A9641'>&#9724</span>
+                        <span id = 'v22', style='color:#A6D96A'>&#9724</span>
+                        <span id = 'v23', style='color:#ffffbf'>&#9724</span>
+                        <span id = 'v24', style='color:#fdae61'>&#9724</span>
+                        <span id = 'v25', style='color:#d7191c'>&#9724</span>
+                        </td>
+                        <td>20 μg</td>
+                        <td>
+                            <span id = 'v27'></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style='text-align: left'>Air NO2<sup>1</sup></td>
+                        <td>
+                        <span id = 'v31', style='color:#1A9641'>&#9724</span>
+                        <span id = 'v32', style='color:#A6D96A'>&#9724</span>
+                        <span id = 'v33', style='color:#ffffbf'>&#9724</span>
+                        <span id = 'v34', style='color:#fdae61'>&#9724</span>
+                        <span id = 'v35', style='color:#d7191c'>&#9724</span>
+                        </td>
+                        <td>40 μg</td>
+                        <td>
+                            <span id = 'v37'></span>
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td style='text-align: left'>Flood</td>
+                        <td>
+                        <span id = 'v41', style='color:#2C7BB6'>&#9724</span>
+                        <span id = 'v42', style='color:#ABD9E9'>&#9724</span>
+                        <span id = 'v43', style='color:#ffffbf'>&#9724</span>
+                        <span id = 'v44', style='color:#fdae61'>&#9724</span>
+                        <span id = 'v45', style='color:#d7191c'>&#9724</span>
+                        </td>
+                        <td> N/A </td>
+                        <td>
+                            <span id = 'v47'></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style='text-align: left'>Heat</td>
+                        <td>
+                        <span id = 'v51', style='color:#10305E'>&#9724</span>
+                        <span id = 'v52', style='color:#8898AF'>&#9724</span>
+                        <span id = 'v53', style='color:#ffffbf'>&#9724</span>
+                        <span id = 'v54', style='color:#fdae61'>&#9724</span>
+                        <span id = 'v55', style='color:#d7191c'>&#9724</span>
+                        </td>
+                        <td> N/A </td>
+                        <td>
+                            <span id = 'v57'></span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style='text-align: left'>Noise<sup>2</sup></td>
+                        <td>
+                        <span id = 'v61', style='color:#8663C3'>&#9724</span>
+                        <span id = 'v62', style='color:#D7BBFF'>&#9724</span>
+                        <span id = 'v63', style='color:#ffffbf'>&#9724</span>
+                        <span id = 'v64', style='color:#fdae61'>&#9724</span>
+                        <span id = 'v65', style='color:#d7191c'>&#9724</span>
+                        </td>
+                        <td> 50 dB LAeq </td>
+                        <td>
+                            <span id = 'v67'></span>
+                        </td>
+                    </tr>
+                    </table>
+                    </section>
+                    
+                </fieldset>
+                </form>
+
+                <p></p>
+
+                <form>
+                <fieldset>
+                    <legend>Description</legend>
+                    <p id='des'>
+                        <sup>1</sup> Reference to World Health Organization Air Quality Guidelines. <br><br>
+                        AQ units are in annual means (μg/m<sup>3</sup>). <br><br>
+                        WHO Guidelines were prefered instead of UK's and EU's, as they are more strict and exposure to any level of these pollutants should be minimised as much as possible.<br><br>
+                        <sup>2</sup> Reference to World Health Organization Noise Quality Guidelines
+                    </p>
+                    
+                </fieldset>
+                </form>
+            
+                
+            </div>
+        
+            <div id="map">
+                
+                
+            </div>
+          
+        </div>
+
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+
+        <!--ADDITIONAL SCRIPTS-->
+
+        <!--for the spatial analysis functions-->
+        <script src='https://unpkg.com/@turf/turf/turf.min.js'></script>
+        
+        <!--for the home button plugin-->
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"/>
+        <link rel="stylesheet" href="plugin/leaflet.zoomhome.css"/>
+        <script src="plugin/leaflet.zoomhome.min.js"></script>
+
+        <!--for the DATA!!!-->
+        <script type="text/javascript" src = "b_script/pcdldn_a.js"></script>
+        <script type="text/javascript" src = "b_script/pcdldn_b.js"></script>
+
+        <!--for the actions!!!-->
+        <script type="text/javascript" src = "b_script/q2map_sc.js"></script>   
+        <script type="text/javascript" src = "b_script/interaction_sc.js"></script>     
+     
+        <script>
+        //BR1 1BY
+        //BR1 1AE
+        //BR1 1AA
+        </script>
+    </body>
+</html>

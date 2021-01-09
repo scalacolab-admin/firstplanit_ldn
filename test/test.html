@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
+    <!-- turf -->
+    <script src='https://unpkg.com/@turf/turf/turf.min.js'></script>
+
+    <title>Test mapper</title>
+
+    <style>
+    #mapid {
+        height: 500px
+    }
+    </style>
+    
+</head>
+
+<body>
+    <div id="mapid">    </div>
+    <script type="text/javascript" src = "test.json"></script>
+    <script type="text/javascript" src = "test.js"></script>
+    <script>
+    var data = datajs
+
+    // initialize the map on the "map" div with a given center and zoom
+    var mymap = L.map('mapid', {
+        center: [51.505, -0.09],
+        zoom: 13
+    });
+
+    var basemap = L.tileLayer('http://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 10,
+            maxZoom: 28,
+            minNativeZoom: 10,
+            maxNativeZoom: 28
+        });
+    
+    var lat = 51.505
+    var lng = -0.09
+    
+    var marker = L.marker([lat,lng])
+    var point = turf.point([lng,lat]);
+    var dist = 200;
+    var buffered = turf.buffer(point, dist, {units: 'meters'})
+
+    var buffStyle = {
+        "color": '#FFFFFF',
+        "weight": 3,
+        "dashArray": 15
+    }
+
+
+    
+
+    var displayB = L.geoJSON(buffered, {
+        style: buffStyle
+    })
+
+    basemap.addTo(mymap)
+    marker.addTo(mymap)
+    
+    displayB.addTo(mymap)
+    
+
+
+    </script>
+</body>
+
+</html>
+

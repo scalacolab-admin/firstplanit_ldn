@@ -1,0 +1,57 @@
+#wrapper {
+    display: flex;
+    height: 90vh;
+}
+
+#left {
+width: 30%;
+min-width: 420;
+background:  #ffffff;
+font-family: Arial;
+padding-right: 10px;
+}
+
+#map {
+    flex-grow: 1;
+    background: #ffffff;
+}
+
+#legendcolor {
+    background: white;
+}
+
+th{
+    font-size: 12px;
+    border-bottom: 1px solid black;
+    white-space: nowrap;
+}
+
+td{
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+td:nth-child(2) span {
+    font-size: 30px;
+    vertical-align: middle;
+    border: 1px solid white;
+    font-family: "Lucida Console";
+}
+
+td:nth-child(3) {
+    font-size: 12px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+td:nth-child(4) {
+    font-size: 12px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+
+#des{
+    font-size: 12px;
+}
